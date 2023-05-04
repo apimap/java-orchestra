@@ -1,0 +1,9 @@
+springdoc:
+  api-docs:
+    enabled: true
+    path: "/documentation/openapi3"
+  swagger-ui:
+    enabled: true
+    operationsSorter: alpha
+    tagsSorter: alpha
+    path: "/documentation/swagger-ui"

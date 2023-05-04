@@ -1,0 +1,7 @@
+mongodb:
+  database-name: "apimap"
+  uri: "mongodb://apimapUser:<password>@localhost:27017/apimap"
+spring:
+  data:
+    mongodb:
+      auto-index-creation: false

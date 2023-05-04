@@ -1,0 +1,37 @@
+apimap:
+  oidc:
+    issuer: 'https://apimap.io'
+    algorithm:
+      public-key-file: 'public_key.der'
+      private-key-file: 'private_key.der'
+      algorithm: "RS256"
+    issuers:
+      - issuer: "https://token.actions.githubusercontent.com"
+        openid-configuration: "https://token.actions.githubusercontent.com/.well-known/openid-configuration"
+        jwks: "https://token.actions.githubusercontent.com/.well-known/jwks"
+        audience: "<audience defined in github settings>"
+        decoder: "github"
+        allowed-projects: ["apimap"]
+      - issuer: "https://apimap.io"
+        openid-configuration: "<url>/.well-known/openid-configuration"
+        audience: "apimap"
+        jwks: "<url>/.well-known/jwks.json"
+        decoder: "apimap"
+        allowed-projects: []
+    idps:
+      - idp: "github"
+        authorize-endpoint: "https://github.com/login/oauth/authorize"
+        access-token-endpoint: "https://github.com/login/oauth/access_token"
+        secret: '<secret provided by github>'
+        client-id: '<client-id provided by github>'
+        scope: 'read:user'
+        default-provider: false
+        jwks: "https://token.actions.githubusercontent.com/.well-known/jwks"
+      - idp: "microsoft365"
+        authorize-endpoint: "<account endpoint>/oauth2/v2.0/authorize"
+        access-token-endpoint: "<account endpoint>/oauth2/v2.0/token"
+        secret: '<secret provided by microsoft>'
+        client-id: '<client id provided by microsoft>'
+        scope: 'openid'
+        default-provider: true
+        jwks: "https://login.microsoftonline.com/common/discovery/v2.0/keys"

@@ -1,0 +1,32 @@
+name: "Code Analysis"
+on:
+  push:
+    branches:
+      - master
+      - 'feature/**'
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: java
+      - name: Build
+        run: ./gradlew build -Prelease.version=0.0.0
+        env:
+          MULTI_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MULTI_PACKAGES_USER: ${{ env.GITHUB_ACTOR }}
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2

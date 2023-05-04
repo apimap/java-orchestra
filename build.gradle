@@ -1,0 +1,87 @@
+buildscript {
+    ext {
+        springBootVersion = '3.0.6'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'org.springdoc.openapi-gradle-plugin' version '1.6.0'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'com.github.spotbugs' version '5.0.14'
+    //id 'de.gliderpilot.semantic-release' version '1.4.2'
+}
+
+group = 'io.apimap.orchestra'
+
+processResources {
+    expand(project.properties)
+}
+
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/apimap/java-rest-interface")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("MULTI_PACKAGES_USER")
+            password = project.findProperty("gpr.key") ?: System.getenv("MULTI_PACKAGES_TOKEN")
+        }
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb-reactive:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server:${springBootVersion}"
+
+    implementation 'com.nimbusds:nimbus-jose-jwt:9.31'
+    implementation 'io.apimap.api:rest-interface:2.3.0'
+    implementation 'com.github.spotbugs:spotbugs-annotations:4.7.3'
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.1.0'
+    implementation 'com.auth0:java-jwt:4.4.0'
+    implementation 'org.jetbrains:annotations:24.0.1'
+    implementation 'org.dizitart:nitrite:3.4.4'
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+}
+
+bootRun {
+    if (project.hasProperty('args')) {
+        args project.args.split(',')
+    }
+}
+
+bootJar {
+    archiveFileName = 'api-complete.jar'
+}
+
+jar {
+    archiveFileName ='api.jar'
+}
+/*
+semanticRelease {
+    releaseBranches {
+        include 'master'
+    }
+    repo {
+        ghToken = System.getenv('GITHUB_TOKEN')
+    }
+}*/
+
+test {
+    useJUnitPlatform()
+}
+
+openApi {
+    apiDocsUrl.set("http://localhost:8080/documentation/openapi3")
+    outputDir.set(file("$projectDir/"))
+    outputFileName.set("swagger.json")
+    waitTimeInSeconds.set(100)
+    customBootRun {
+        args.set(["--spring.profiles.active=swaggermock"])
+    }
+}

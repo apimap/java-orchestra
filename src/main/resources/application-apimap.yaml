@@ -1,0 +1,14 @@
+apimap:
+  metadata:
+    copyright: "The Apimap.io project"
+    faq: "https://www.apimap.io"
+    support: "https://www.apimap.io"
+  host-identifier:
+    enabled: true
+  openapi:
+    enabled: true
+  version: ${project.version}
+  zeroconf:
+    endpoints:
+      orchestra: "<url>"
+      api: "<url>"
