@@ -1,0 +1,40 @@
+spring:
+  main:
+    banner-mode: "off"
+  profiles:
+    include:
+      - oidc
+server:
+  address: 0.0.0.0
+  port: 8080
+  forward-headers-strategy: NATIVE
+  error:
+    include-stacktrace: never
+    include-message: never
+    include-exception: false
+    whitelabel:
+      enabled: false
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    operationsSorter: alpha
+    tagsSorter: alpha
+mongodb:
+  database-name: "apimap"
+  uri: "mongodb://apimapUser:<password>@localhost:27017/apimap"
+apimap:
+  metadata:
+    copyright: "The Apimap.io project"
+    faq: "https://www.apimap.io"
+    support: "https://www.apimap.io"
+  host-identifier:
+    enabled: true
+  openapi:
+    enabled: true
+  version: ${project.version}
+  zeroconf:
+    endpoints:
+      orchestra: "<url>"
+      api: "<url>"
