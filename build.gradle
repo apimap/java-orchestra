@@ -37,7 +37,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server:${springBootVersion}"
 
-    implementation 'com.nimbusds:nimbus-jose-jwt:9.30.1'
+    implementation 'com.nimbusds:nimbus-jose-jwt:9.31'
     implementation 'io.apimap.api:rest-interface:2.3.0'
     implementation 'com.github.spotbugs:spotbugs-annotations:4.7.3'
     implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.0.4'
