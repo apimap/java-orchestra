@@ -46,7 +46,7 @@ dependencies {
     implementation 'org.dizitart:nitrite:3.4.4'
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
 }
 
 bootRun {
