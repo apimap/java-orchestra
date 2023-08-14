@@ -9,7 +9,7 @@ plugins {
     id 'maven-publish'
     id 'org.springdoc.openapi-gradle-plugin' version '1.6.0'
     id 'org.springframework.boot' version "${springBootVersion}"
-    id 'com.github.spotbugs' version '5.0.14'
+    id 'com.github.spotbugs' version '5.1.2'
     //id 'de.gliderpilot.semantic-release' version '1.4.2'
 }
 
